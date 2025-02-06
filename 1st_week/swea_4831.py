@@ -3,6 +3,7 @@ for t in range(1, T + 1):
     K, N, M = map(int, input().split())
     station = list(map(int, input().split()))
     locate = [0] * (N + 1)
+    locate.__next__()
     for num in station:
         locate[num] += 1
     energy = K
@@ -27,8 +28,6 @@ for t in range(1, T + 1):
                 cnt += 1
                 break
     print(f'#{t} {cnt}')
-
-
 
 
 
