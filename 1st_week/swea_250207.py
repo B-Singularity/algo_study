@@ -8,7 +8,6 @@ def get_row_max(matrix):
         if row_sum > result:
             result = row_sum
 
-
     return result
 
 
