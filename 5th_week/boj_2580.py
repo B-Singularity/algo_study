@@ -1,32 +1,40 @@
-import copy
-
-def get_empty_cor(arr):
-    location = []
-    for i in range(len(arr)):
-        for j in range(len(arr[0])):
-            if arr[i][j] == 0:
-                location.append([i, j])
-    return location
-
-def check(arr, y, x):
-    number = set(1, 2, 3, 4, 5, 6, 7, 8, 9)
-    cnt_x = set()
-    cnt_y = set()
-    cnt_box = set()
+def is_valid(board, y, x, num):
     for i in range(9):
-        cnt_x.add(arr[y][i])
-    for i in range(9):
-        cnt_y.add(arr[i][x])
+        if board[y][i] == num:
+            return False
+        if board[i][x] == num:
+            return False
+
+    start_y = (y // 3) * 3
+    start_x = (x // 3) * 3
     for i in range(3):
         for j in range(3):
-            cnt_box.add(arr[y / 3 + i][x / 3 + j])
-    if cnt_x != number or cnt_y != number or cnt_box != number:
-        return False
+            if board[start_y + i][start_x + j] == num:
+                return False
     return True
 
-def backtrack(arr, empty_loc, ):
-    lst = copy.deepcopy(arr)
+def backtrack(arr):
+    # 0인 칸 찾기 -> 1부터 9까지 넣어보기 -> 그 상태로 다른 0에 넣어보기 -> 안 되면 빠꾸치기 -> 다 빠져나왔으면 틀림 복구 ->
+    for i in range(9):
+        for j in range(9):
+            if arr[i][j] == 0:
+                for k in range(1, 10):
+                    if is_valid(arr, i, j, k):
+                        arr[i][j] = k
+
+                        if backtrack(arr):
+                            return True
+
+                        arr[i][j] = 0
+                return False
+
+    return True
+
+
 
 
 sdoku = [list(map(int, input().split())) for _ in range(9)]
+backtrack(sdoku)
+for row in sdoku:
+    print(' '.join(map(str, row)))
 
