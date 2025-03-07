@@ -26,6 +26,12 @@ def check(arr, y, x):
 
 def backtrack(arr, empty_loc, ):
     lst = copy.deepcopy(arr)
+    for i in range(len(empty_loc)):
+        y, x = empty_loc[i]
+        for j in range(9):
+            if check(lst, y, x):
+                
+
 
 
 sdoku = [list(map(int, input().split())) for _ in range(9)]
