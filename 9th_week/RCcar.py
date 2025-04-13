@@ -39,6 +39,7 @@ for t in range(1, T + 1):
     matrix = [list(input().strip()) for _ in range(N)]
     Q = int(input().strip())
     commands = []
+    routes = []
     for _ in range(Q):
         _, cmd = input().split()
         commands.append(cmd)
@@ -49,10 +50,15 @@ for t in range(1, T + 1):
     for cmd in commands:
         now_y, now_x = start_y, start_x
         now_direction = 0
+        path = [(now_y, now_x)]
 
         for op in cmd:
             now_direction, now_y, now_x = turn(now_direction, now_y, now_x, op, N, matrix)
+            path.append((now_y, now_x))
 
+        routes.append(path)
         result.append('1' if (now_y, now_x) == (goal_y, goal_x) else '0')
 
+
     print(f"#{t} {' '.join(result)}")
+    print(routes)
